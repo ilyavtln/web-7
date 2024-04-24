@@ -12,11 +12,13 @@
 <body>
 <section class="page-section">
     <div class="container">
-        <h1>Это главная страница</h1>
-        <h5>Это описание главной страницы</h5>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores cupiditate delectus dicta earum excepturi harum hic inventore itaque labore magni, minima neque nihil odio reiciendis, sequi voluptates voluptatibus. Doloremque, repellat.
-        </p>
+        <div class="bg-light rounded-3 p-3">
+            <h1>Это главная страница</h1>
+            <h5>Это описание главной страницы</h5>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores cupiditate delectus dicta earum excepturi harum hic inventore itaque labore magni, minima neque nihil odio reiciendis, sequi voluptates voluptatibus. Doloremque, repellat.
+            </p>
+        </div>
     </div>
 </section>
 </body>
