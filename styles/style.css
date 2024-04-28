@@ -1,0 +1,75 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Monserrat, sans-serif;
+}
+
+.banner-wrapper_two {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.banner-gap {
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    gap: 1.5rem;
+  }
+}
+
+.banner-flying {
+  background-color: var(--bs-gray-100);
+}
+
+.banner-flying:hover {
+  background-color: var(--bs-white);
+  animation: .3s ease-in-out;
+}
+
+.purple-color {
+  color: rebeccapurple;
+}
+
+.footer-logo {
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+.w-fit-content {
+  width: fit-content !important;
+}
+
+.mr-1 {
+  margin-right: 0.5rem !important;
+}
+
+.ml-1 {
+  margin-left: 0.5rem !important;
+}
+
+.ml-2 {
+  margin-left: 1rem !important;
+}
+
+.container-news {
+  width: 100%;
+  margin-right: auto;
+  margin-left: 1.5rem;
+
+  @media (min-width: 768px) {
+    width: 90%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 70%;
+  }
+}
