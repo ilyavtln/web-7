@@ -731,7 +731,7 @@ progress {
 }
 
 .page-section {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 
   @media (min-width: 768px) {
     margin-top: 1.5rem;
@@ -739,6 +739,21 @@ progress {
 
   @media (min-width: 1200px) {
     margin-top: 3rem;
+  }
+}
+
+.last-page-section {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 1200px) {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
   }
 }
 
