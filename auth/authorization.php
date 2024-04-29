@@ -200,5 +200,28 @@
     </div>
 </section>
 
+<section class="page-section">
+    <!-- Для нормального отступа -->
+</section>
+
+<section class="page-section mt-auto">
+    <div class="container-fluid">
+        <footer class="d-flex py-2 flex-wrap justify-content-between align-items-center border-top">
+            <div class="d-flex align-items-center">
+                <a href="/" class="text-body-secondary text-decoration-none pe-2">
+                    <img src="../shared/logos/main.svg" alt="Logo" width="auto" height="30" class="d-inline-block align-text-center">
+                </a>
+                <span class="text-body-secondary">&copy; 2024 Company, Inc</span>
+            </div>
+
+            <ul class="justify-content-end list-unstyled m-0 d-flex">
+                <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-person-circle"></i></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-person-circle"></i></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-person-circle"></i></a></li>
+            </ul>
+        </footer>
+    </div>
+</section>
+
 </body>
 </html>

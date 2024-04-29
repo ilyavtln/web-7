@@ -41,7 +41,7 @@ if ($check_result->num_rows > 0) {
     $_SESSION['error'] = "Пользователь с таким логином уже зарегистрирован. Пожалуйста, войдите в аккаунт.";
     $check_stmt->close();
     $mysqli->close();
-    header("Location: ../../auth/authorization.php");
+    header("Location: ../../auth/registration.php");
     exit();
 }
 
