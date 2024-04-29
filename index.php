@@ -186,6 +186,23 @@
 
 <section class="page-section">
     <div class="container">
+        <div class="rounded-5 bg-light p-3">
+            <nav style="--bs-breadcrumb-divider: '\';" aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-custom overflow-hidden text-center m-0">
+                    <li class="breadcrumb-item active">
+                        <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">
+                            <i class="bi bi-house"></i>
+                            Главная
+                        </a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="page-section">
+    <div class="container">
         <div class="bg-light rounded-3 p-3">
             <h1>Это главная страница</h1>
             <h5>Это описание главной страницы</h5>
