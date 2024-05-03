@@ -29,15 +29,15 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
                     <ul class="navbar-nav gap-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="../index.php">Главная</a>
+                            <a class="nav-link" aria-current="page" href="../index.php">Главная</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="catalog.php">Каталог</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="promo.php">Акции</a>
+                            <a class="nav-link active" href="promo.php">Акции</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Дополнительно
                             </a>
@@ -45,7 +45,7 @@
                                 <li><a class="dropdown-item" href="promo.php">Ввести промокод</a></li>
                                 <li><a class="dropdown-item" href="about.php">Разработчики</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                     <ul class="navbar-nav gap-3">
                         <li class="nav-item dropdown">
@@ -53,10 +53,16 @@
                                 <i class="bi bi-person-circle"></i>
                             </a>
                             <ul class="dropdown-menu">
+                            <?php
+                                if (isset($_COOKIE['user']) && $_COOKIE['user'] != ''): ?>
+                                <li><a class="dropdown-item" href="../auth/cabinet.php">Личный кабинет</a></li>
+                                <li><a class="dropdown-item" href="../scripts/php/exit.php">Выйти</a></li>
+                              
+                                <?php else: ?>
                                 <li><a class="dropdown-item" href="../auth/registration.php">Регистрация</a></li>
                                 <li><a class="dropdown-item" href="../auth/authorization.php">Авторизация</a></li>
-                                <li><div class="dropdown-divider"></div></li>
-                                <li><a class="dropdown-item" href="../auth/cabinet.php">Личный кабинет</a></li>
+                                
+                                <?php endif; ?>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -106,7 +112,7 @@
                     <div class="offcanvas-body py-0">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item border-1 border-bottom border-black">
-                                <a class="nav-link active" aria-current="page" href="../index.php">
+                                <a class="nav-link" aria-current="page" href="../index.php">
                                     <i class="bi bi-house"></i>
                                     Главная
                                 </a>
@@ -118,7 +124,7 @@
                                 </a>
                             </li>
                             <li class="nav-item border-1 border-bottom border-black">
-                                <a class="nav-link" href="promo.php">
+                                <a class="nav-link active" href="promo.php">
                                     <i class="bi bi-award"></i>
                                     Акции
                                 </a>
@@ -129,13 +135,19 @@
                                     Кабинет
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="../auth/registration.php">Регистрация</a></li>
-                                    <li><a class="dropdown-item" href="../auth/authorization.php">Авторизация</a></li>
-                                    <li><div class="dropdown-divider"></div></li>
-                                    <li><a class="dropdown-item" href="../auth/cabinet.php">Личный кабинет</a></li>
+                                <?php
+                                if (isset($_COOKIE['user']) && $_COOKIE['user'] != ''): ?>
+                                <li><a class="dropdown-item" href="../auth/cabinet.php">Личный кабинет</a></li>
+                                <li><a class="dropdown-item" href="../scripts/php/exit.php">Выйти</a></li>
+                              
+                                <?php else: ?>
+                                <li><a class="dropdown-item" href="../auth/registration.php">Регистрация</a></li>
+                                <li><a class="dropdown-item" href="../auth/authorization.php">Авторизация</a></li>
+                                
+                                <?php endif; ?>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown border-1 border-bottom border-black">
+                            <!-- <li class="nav-item dropdown border-1 border-bottom border-black">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-plus-square"></i>
                                     Дополнительно
@@ -144,7 +156,7 @@
                                     <li><a class="dropdown-item" href="promo.php">Ввести промокод</a></li>
                                     <li><a class="dropdown-item" href="about.php">Разработчики</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -155,25 +167,114 @@
 
 <section class="page-section">
     <div class="container">
-        <div class="rounded-5 bg-light p-3">
-            <nav style="--bs-breadcrumb-divider: '-';" aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-custom overflow-hidden text-center m-0">
-                    <li class="breadcrumb-item">
-                        <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">
-                            <i class="bi bi-house"></i>
-                            Главная
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">
-                            Акции
-                        </a>
-                    </li>
-                </ol>
-            </nav>
+        <div class="bg-light rounded-3 p-3 mt-3" >
+            <h3 class="display-1 text-center">
+                <strong>Акции</strong>
+            </h3>
         </div>
+
+        <?php
+        $_SESSION['admin_acess'] = ""
+        ?>
+        <?php
+        if (isset($_SESSION['admin_access']) && $_SESSION['admin_access'] == true): ?>
+            <button type="button" class="btn btn-primary mb-3 w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Добавить акцию
+            </button>
+        
+
+            <!-- Модальное окно -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Добавление акции</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                        <div class="p-3 rounded-3 bg-light">
+            <form action="../scripts/php/addpromo.php" method="post">
+                <div class="mb-3" >
+                    <label for="InputTitle" class="form-label">Название</label>
+                    <input type="text" class="form-control" id="InputTitle" name="title">
+                </div>
+                <div class="mb-3" >
+                    <label for="InputDescription" class="form-label">Описание</label>
+                    <input type="text" class="form-control" id="InputDescription" name="description">
+                </div>
+                <div class="mb-3" >
+                    <label for="InputImage" class="form-label">Картинка</label>
+                    <input type="text" class="form-control" id="InputImage" name="image">
+                </div>
+                <div class="mb-3">
+                <label for="InputDate" class="form-label">Дата</label>
+      <input type="date" class="form-control" id="InputDate" name="date" value="<?php echo date("Y-m-d") ?>">
+                </div>
+                <button type="submit" class="btn btn-outline-dark">Отправить</button>
+                <div class="mb-3">
+                </div>
+            </form>
+        </div>
+                 </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif;?>
+
     </div>
 </section>
+
+        <?php
+    $promo_on_page = 10;
+    $mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
+    $query = "SELECT COUNT(*) as c FROM promo";
+    $result = $mysqli->query($query)->fetch_object();
+    $num = ceil((int)$result->c[0] / $promo_on_page);
+
+    if (isset($_GET['p'])) {
+      $p = $_GET['p'];
+    } else {
+      $p = 1;
+    }
+    $p = (int)$p;
+    if ($p === 0 || $p < 1) {
+      $p = 1;
+    }
+    if ($p > $num) {
+      $p = $num;
+    }
+    $startRow = ($p - 1) * $gifts_on_page;
+
+
+    $stmt = $mysqli->prepare("SELECT * FROM promo LIMIT ?, ?");
+    $stmt->bind_param("ii", $startRow, $promo_on_page);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $promos = array();
+    while ($row = $result->fetch_assoc()) {
+      $promos[] = $row;
+    }
+    $i = 0;
+  ?>
+
+    <div class="d-grid banner-gap">
+      <?php
+        foreach ($promos as &$onePromo) {
+          ?>
+            <div class="banner-flying row g-0 border rounded">
+                <div class="p-4 d-flex flex-column justify-content-between">
+                    <div class="text-center">
+                        <p class="card-text mb-3 text-end"><?= $onePromo["date"] ?></p>
+                        <h5 class="display-3 text-center"><strong><?= $onePromo["title"] ?></strong></h5>
+                        <img src="<?= $onePromo["image"] ?>" class="img-fluid mb-2 img-thumbnail " alt="(((">
+                        <h3 class="card-text mb-3 text-center"><?= $onePromo["description"] ?></h3>
+                    </div>
+                </div>
+            </div>
+          <?php
+        }
+      ?>
+    </div>
 
 <section class="page-section">
     <!-- Для нормального отступа -->

@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Регистрация</title>
+    <title>О нас</title>
     <meta name="description" content="Акции и призы ежедневно">
     <link href="../styles/bootstrap.css" rel="stylesheet">
     <link href="../styles/style.css" rel="stylesheet">
@@ -15,6 +15,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+
 <section class="d-none d-md-block sticky-top">
     <div class="container-fluid">
         <nav class="navbar navbar-expand-md nav-underline bg-body-tertiary">
@@ -31,18 +32,18 @@
                             <a class="nav-link" aria-current="page" href="../index.php">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../pages/catalog.php">Каталог</a>
+                            <a class="nav-link" href="catalog.php">Каталог</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../pages/promo.php">Акции</a>
+                            <a class="nav-link" href="promo.php">Акции</a>
                         </li>
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Дополнительно
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../pages/promo.php">Ввести промокод</a></li>
-                                <li><a class="dropdown-item" href="../pages/about.php">Разработчики</a></li>
+                                <li><a class="dropdown-item" href="promo.php">Ввести промокод</a></li>
+                                <li><a class="dropdown-item" href="about.php">Разработчики</a></li>
                             </ul>
                         </li> -->
                     </ul>
@@ -52,25 +53,25 @@
                                 <i class="bi bi-person-circle"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <?php
+                            <?php
                                 if (isset($_COOKIE['user']) && $_COOKIE['user'] != ''): ?>
-                                <li><a class="dropdown-item" href="cabinet.php">Личный кабинет</a></li>
+                                <li><a class="dropdown-item" href="../auth/cabinet.php">Личный кабинет</a></li>
                                 <li><a class="dropdown-item" href="../scripts/php/exit.php">Выйти</a></li>
                               
                                 <?php else: ?>
-                                <li><a class="dropdown-item" href="registration.php">Регистрация</a></li>
-                                <li><a class="dropdown-item" href="authorization.php">Авторизация</a></li>
+                                <li><a class="dropdown-item" href="../auth/registration.php">Регистрация</a></li>
+                                <li><a class="dropdown-item" href="../auth/authorization.php">Авторизация</a></li>
                                 
                                 <?php endif; ?>
-                                </ul>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../pages/favorites.php">
+                            <a class="nav-link" href="favorites.php">
                                 <i class="bi bi-heart"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../pages/cart.php">
+                            <a class="nav-link" href="cart.php">
                                 <i class="bi bi-bag"></i>
                             </a>
                         </li>
@@ -89,12 +90,12 @@
             </a>
             <ul class="navbar-nav flex-row gap-3">
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/favorites.php">
+                    <a class="nav-link" href="favorites.php">
                         <i class="bi bi-heart"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/cart.php">
+                    <a class="nav-link" href="cart.php">
                         <i class="bi bi-bag"></i>
                     </a>
                 </li>
@@ -117,13 +118,13 @@
                                 </a>
                             </li>
                             <li class="nav-item border-1 border-bottom border-black">
-                                <a class="nav-link" href="../pages/catalog.php">
+                                <a class="nav-link" href="catalog.php">
                                     <i class="bi bi-card-list"></i>
                                     Каталог
                                 </a>
                             </li>
                             <li class="nav-item border-1 border-bottom border-black">
-                                <a class="nav-link" href="../pages/promo.php">
+                                <a class="nav-link" href="promo.php">
                                     <i class="bi bi-award"></i>
                                     Акции
                                 </a>
@@ -136,12 +137,12 @@
                                 <ul class="dropdown-menu">
                                 <?php
                                 if (isset($_COOKIE['user']) && $_COOKIE['user'] != ''): ?>
-                                <li><a class="dropdown-item" href="cabinet.php">Личный кабинет</a></li>
+                                <li><a class="dropdown-item" href="../auth/cabinet.php">Личный кабинет</a></li>
                                 <li><a class="dropdown-item" href="../scripts/php/exit.php">Выйти</a></li>
                               
                                 <?php else: ?>
-                                <li><a class="dropdown-item" href="registration.php">Регистрация</a></li>
-                                <li><a class="dropdown-item" href="authorization.php">Авторизация</a></li>
+                                <li><a class="dropdown-item" href="../auth/registration.php">Регистрация</a></li>
+                                <li><a class="dropdown-item" href="../auth/authorization.php">Авторизация</a></li>
                                 
                                 <?php endif; ?>
                                 </ul>
@@ -152,8 +153,8 @@
                                     Дополнительно
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="../pages/promo.php">Ввести промокод</a></li>
-                                    <li><a class="dropdown-item" href="../pages/about.php">Разработчики</a></li>
+                                    <li><a class="dropdown-item" href="promo.php">Ввести промокод</a></li>
+                                    <li><a class="dropdown-item" href="about.php">Разработчики</a></li>
                                 </ul>
                             </li> -->
                         </ul>
@@ -164,50 +165,28 @@
     </div>
 </section>
 
-
-<?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../auth/authorization.php");
-    exit();
-}
-
-$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-
-$stmt = $mysqli->prepare("SELECT * FROM users WHERE id = ?");
-$stmt->bind_param("i", $_SESSION['user_id']);
-$stmt->execute();
-
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-
-$stmt->close();
-$mysqli->close();
-?>
-
 <section class="page-section">
     <div class="container">
         <div class="bg-light rounded-3 p-3 mt-3" >
             <h3 class="display-3 text-center">
-                <strong>Добро пожаловать, <?=$user["login"]?>!</strong>
+                <strong>Оформление заказа</strong>
             </h3>
         </div>
-    </div>
-</section>
 
 <section class="page-section">
     <div class="container">
-        <div class="bg-white rounded-3 p-3 mt-3" >
-            <h2>
-                Имя: <?=$user["name"]?><br>
-                Фамилия: <?=$user["surname"]?><br>
-                Роль:  <?=$user['login'] == 'admin' ? 'администратор' : 'пользователь'?><br>
-                Накоплено бонусов: <?=$user["points"]?>
-            </h2>
-        </div>
+        <div class="p-3 rounded-3 bg-white mt-3">
+            <form action="../scripts/php/order.php" method="post">
+                <div class="mb-3 w-50" >
+                    <label for="InputAdress" class="form-label">Адрес доставки</label>
+                    <input type="text" class="form-control" id="InputAdress" name="adress">
+                </div>
+                <button type="submit" class="btn btn-outline-dark">Отправить</button>
+            </form>
+             </div>
     </div>
 </section>
+
 
 <section class="page-section">
     <!-- Для нормального отступа -->
@@ -231,6 +210,5 @@ $mysqli->close();
         </footer>
     </div>
 </section>
-
 </body>
 </html>

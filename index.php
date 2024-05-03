@@ -37,7 +37,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="pages/promo.php">Акции</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Дополнительно
                             </a>
@@ -45,7 +45,7 @@
                                 <li><a class="dropdown-item" href="pages/promo.php">Ввести промокод</a></li>
                                 <li><a class="dropdown-item" href="pages/about.php">Разработчики</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                     <ul class="navbar-nav gap-3">
                         <li class="nav-item dropdown">
@@ -53,10 +53,16 @@
                                 <i class="bi bi-person-circle"></i>
                             </a>
                             <ul class="dropdown-menu">
+                                <?php
+                                if (isset($_COOKIE['user']) && $_COOKIE['user'] != ''): ?>
+                                <li><a class="dropdown-item" href="auth/cabinet.php">Личный кабинет</a></li>
+                                <li><a class="dropdown-item" href="scripts/php/exit.php">Выйти</a></li>
+                              
+                                <?php else: ?>
                                 <li><a class="dropdown-item" href="auth/registration.php">Регистрация</a></li>
                                 <li><a class="dropdown-item" href="auth/authorization.php">Авторизация</a></li>
-                                <li><div class="dropdown-divider"></div></li>
-                                <li><a class="dropdown-item" href="auth/cabinet.php">Личный кабинет</a></li>
+                                
+                                <?php endif; ?>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -129,13 +135,19 @@
                                     Кабинет
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="auth/registration.php">Регистрация</a></li>
-                                    <li><a class="dropdown-item" href="auth/authorization.php">Авторизация</a></li>
-                                    <li><div class="dropdown-divider"></div></li>
-                                    <li><a class="dropdown-item" href="auth/cabinet.php">Личный кабинет</a></li>
+                                <?php
+                                if (isset($_COOKIE['user']) && $_COOKIE['user'] != ''): ?>
+                                <li><a class="dropdown-item" href="auth/cabinet.php">Личный кабинет</a></li>
+                                <li><a class="dropdown-item" href="scripts/php/exit.php">Выйти</a></li>
+                              
+                                <?php else: ?>
+                                <li><a class="dropdown-item" href="auth/registration.php">Регистрация</a></li>
+                                <li><a class="dropdown-item" href="auth/authorization.php">Авторизация</a></li>
+                                
+                                <?php endif; ?>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown border-1 border-bottom border-black">
+                            <!-- <li class="nav-item dropdown border-1 border-bottom border-black">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-plus-square"></i>
                                     Дополнительно
@@ -144,7 +156,7 @@
                                     <li><a class="dropdown-item" href="pages/promo.php">Ввести промокод</a></li>
                                     <li><a class="dropdown-item" href="pages/about.php">Разработчики</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -155,62 +167,87 @@
 
 <section class="page-section">
     <div class="container">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <div class="bg-light rounded-3 p-3 mt-3 d-flex flex-row" >
+            <h3 class="display-1">
+                <strong>ВВОДИ КОДЫ,<br>ПОЛУЧАЙ ПРИЗЫ</strong>
+            </h3>
+            <div class="d-lg-flex d-none align-items-end">
+                <img src="shared/images/Cookie.png" class="d-block" alt="...">
             </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src=shared/images/news-2.jpg class="d-block w-100 rounded-3" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src=shared/images/news-2.jpg class="d-block w-100 rounded-3" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src=shared/images/news-2.jpg class="d-block w-100 rounded-3" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Предыдущий</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Следующий</span>
-            </button>
         </div>
+        <?php
+    if (isset($_COOKIE['user']) && $_COOKIE['user'] != ''): ?>
+        <button type="button" class="btn btn-primary mb-3 w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Ввести код
+        </button>
+    
+                    <!-- Модальное окно -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Ввод промокода</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                        <div class="p-3 rounded-3 bg-light">
+            <form action="../scripts/php/addpromocode.php" method="post">
+                <div class="mb-3" >
+                    <label for="InputType" class="form-label">Название</label>
+                    <input type="text" class="form-control" id="InputType" name="type">
+                </div>
+                <button type="submit" class="btn btn-outline-dark">Отправить</button>
+            </form>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+
+
+    <?php else: ?>
+        <div class="d-grid gap-2">
+            <a class="btn btn-primary mb-3" href="auth/registration.php" role="button">Ввести код</a>
+        </div>
+<?php endif; ?>
     </div>
+    <?php
+                        if(isset($_SESSION['error4']) && !empty($_SESSION['error4'])) {
+                            echo '<div class="alert alert-danger text-center mt-1" role="alert">'.
+                                $_SESSION['error4'] . '</div>';
+                            $_SESSION['error4'] = ""; // Сброс ошибки после вывода
+                        }
+                    ?>
 </section>
+
+
+<div class="py-1 mt-3 bg-black">
+  <hr class="my-0">
+</div>
 
 <section class="page-section">
     <div class="container">
-        <div class="rounded-5 bg-light p-3">
-            <nav style="--bs-breadcrumb-divider: '\';" aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-custom overflow-hidden text-center m-0">
-                    <li class="breadcrumb-item active">
-                        <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">
-                            <i class="bi bi-house"></i>
-                            Главная
-                        </a>
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-</section>
-
-<section class="page-section">
-    <div class="container">
-        <div class="bg-light rounded-3 p-3">
-            <h1>Это главная страница</h1>
-            <h5>Это описание главной страницы</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores cupiditate delectus dicta earum
-                excepturi harum hic inventore itaque labore magni, minima neque nihil odio reiciendis, sequi voluptates
-                voluptatibus. Doloremque, repellat.
-            </p>
+        <div class="bg-light rounded-3 p-3 mt-3 " >
+            <h5 class="display-3 text-center">
+                <strong>Как получить призы?</strong>
+            </h5>
+            <div class="d-flex flex-row justify-content-center">
+            <span class="badge rounded-pill bg-primary mt-3 py-2 px-4">
+                <h2 class="text-center">
+                1. Купи товар <br> участвующий в акции
+                </h2>
+            </span>
+            <span class="badge rounded-pill bg-primary mt-3 py-2 px-4">
+                <h2 class="text-center">
+                2. Регистрируй <br>код на сайте
+                </h2>
+            </span>
+            <span class="badge rounded-pill bg-primary mt-3 py-2 px-4">
+                <h2 class="text-center">
+                3. Получи <br>гарантированный приз
+                </h2>
+            </span>
+            </div>
         </div>
     </div>
 </section>
@@ -221,7 +258,7 @@
 
 <section class="page-section mt-auto">
     <div class="container-fluid">
-        <footer class="d-flex py-2 flex-wrap justify-content-between align-items-center border-top">
+        <footer class="d-flex py-3 flex-wrap justify-content-between align-items-center border-top">
             <div class="d-flex align-items-center">
                 <a href="/" class="text-body-secondary text-decoration-none pe-2">
                     <img src="shared/logos/main.svg" alt="Logo" width="auto" height="30" class="d-inline-block align-text-center">

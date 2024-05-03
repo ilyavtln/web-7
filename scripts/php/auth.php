@@ -24,6 +24,7 @@ if (!$user) {
 }
 
 setcookie('user', $user['name'], time() + 7200, "/");
+$_SESSION['user_id'] = $user['id'];
 
 if ($user['login'] == 'admin') {
     $_SESSION['admin_access'] = true;
