@@ -46,7 +46,7 @@ if (!$promocode) {
 $user_id = $_SESSION['user_id'];
 
 $stmt = $mysqli->prepare("DELETE FROM promocodes WHERE type = ?");
-$stmt->bind_param("i", $type);
+$stmt->bind_param("s", $type);
 $stmt->execute();
 
 $update_stmt = $mysqli->prepare("UPDATE users SET points = points + ? WHERE id = ?");
