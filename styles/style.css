@@ -14,6 +14,47 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.banner-wrapper_three {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.ban-3 {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.img-wrapper {
+  height: 50px;
+  width: auto;
+}
+
+.w-lg-50 {
+  @media (min-width: 992px) {
+    width: 50% !important;
+  }
+}
+
 .banner-gap {
   gap: 1rem;
 
