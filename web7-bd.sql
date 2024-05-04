@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: May 03, 2024 at 01:01 PM
--- Server version: 5.7.39
--- PHP Version: 8.2.0
+-- Хост: 127.0.0.1:3306
+-- Время создания: Май 04 2024 г., 14:26
+-- Версия сервера: 8.0.30
+-- Версия PHP: 8.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,25 +18,48 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `web7-bd`
+-- База данных: `web7-bd`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `catalog`
+-- Структура таблицы `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int UNSIGNED NOT NULL,
+  `catalog_id` int NOT NULL,
+  `date` date NOT NULL,
+  `address` text COLLATE utf8mb4_general_ci NOT NULL,
+  `login` text COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `cart`
+--
+
+INSERT INTO `cart` (`id`, `catalog_id`, `date`, `address`, `login`) VALUES
+(33, 4, '2024-05-04', 'Чита', 'ilyavtln'),
+(36, 3, '2024-05-04', 'ааыа', 'ilyavtln'),
+(38, 5, '2024-05-04', 'Чита', 'ilyavtln');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `catalog`
 --
 
 CREATE TABLE `catalog` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
   `title` text NOT NULL,
   `description` text NOT NULL,
   `image` text NOT NULL,
-  `price` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `price` int UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `catalog`
+-- Дамп данных таблицы `catalog`
 --
 
 INSERT INTO `catalog` (`id`, `title`, `description`, `image`, `price`) VALUES
@@ -50,19 +73,19 @@ INSERT INTO `catalog` (`id`, `title`, `description`, `image`, `price`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `promo`
+-- Структура таблицы `promo`
 --
 
 CREATE TABLE `promo` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
   `title` text NOT NULL,
   `description` text NOT NULL,
   `date` date NOT NULL,
   `image` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `promo`
+-- Дамп данных таблицы `promo`
 --
 
 INSERT INTO `promo` (`id`, `title`, `description`, `date`, `image`) VALUES
@@ -72,17 +95,17 @@ INSERT INTO `promo` (`id`, `title`, `description`, `date`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `promocodes`
+-- Структура таблицы `promocodes`
 --
 
 CREATE TABLE `promocodes` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
   `type` text NOT NULL,
-  `price` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `price` int UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `promocodes`
+-- Дамп данных таблицы `promocodes`
 --
 
 INSERT INTO `promocodes` (`id`, `type`, `price`) VALUES
@@ -97,82 +120,94 @@ INSERT INTO `promocodes` (`id`, `type`, `price`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Структура таблицы `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `surname` varchar(100) NOT NULL,
   `login` varchar(32) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `points` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `points` int UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `users`
+-- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `login`, `password`, `points`) VALUES
 (1, 'Админ', 'Админ', 'admin', 'fdc0ae4052bc28b93aeefec22450665d', 1000),
-(6, 'Елья', 'Ватлин', 'ilyavtln', 'c8d927166b53b8d0356293eec7a81600', 0),
-(7, 'маша', 'гудкова', 'gudok', '2e77c4c5676f726e9c04a427a293601c', 0);
+(6, 'Елья', 'Ватлин', 'ilyavtln', 'c8d927166b53b8d0356293eec7a81600', 15000),
+(7, 'маша', 'гудкова', 'gudok', '2e77c4c5676f726e9c04a427a293601c', 1000);
 
 --
--- Indexes for dumped tables
+-- Индексы сохранённых таблиц
 --
 
 --
--- Indexes for table `catalog`
+-- Индексы таблицы `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `catalog`
 --
 ALTER TABLE `catalog`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `promo`
+-- Индексы таблицы `promo`
 --
 ALTER TABLE `promo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `promocodes`
+-- Индексы таблицы `promocodes`
 --
 ALTER TABLE `promocodes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Индексы таблицы `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT for table `catalog`
+-- AUTO_INCREMENT для таблицы `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT для таблицы `catalog`
 --
 ALTER TABLE `catalog`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `promo`
+-- AUTO_INCREMENT для таблицы `promo`
 --
 ALTER TABLE `promo`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `promocodes`
+-- AUTO_INCREMENT для таблицы `promocodes`
 --
 ALTER TABLE `promocodes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -93,10 +93,8 @@
                                         <li><a class="dropdown-item" href="../scripts/php/exit.php">Выйти</a></li>
 									
 									<?php else: ?>
-                                        <li><a class="dropdown-item" href="../auth/registration.php">Регистрация</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="../auth/authorization.php">Авторизация</a>
-                                        </li>
+                                        <li><a class="dropdown-item" href="../auth/registration.php">Регистрация</a></li>
+                                        <li><a class="dropdown-item" href="../auth/authorization.php">Авторизация</a></li>
 									
 									<?php endif;
 								?>
@@ -203,8 +201,7 @@
 										<?php else: ?>
                                             <li><a class="dropdown-item" href="../auth/registration.php">Регистрация</a>
                                             </li>
-                                            <li><a class="dropdown-item"
-                                                   href="../auth/authorization.php">Авторизация</a>
+                                            <li><a class="dropdown-item" href="../auth/authorization.php">Авторизация</a>
                                             </li>
 										
 										<?php endif; ?>
@@ -225,12 +222,12 @@
                 <strong>Список призов</strong>
             </h3>
         </div>
-		
-		<?php
-			$_SESSION['admin_acess'] = ""
-		?>
-		<?php
-			if (isset($_SESSION['admin_access']) && $_SESSION['admin_access'] == true): ?>
+        
+        <?php
+            $_SESSION['admin_acess'] = ""
+        ?>
+        <?php
+            if (isset($_SESSION['admin_access']) && $_SESSION['admin_access'] == true): ?>
                 <button type="button" class="btn btn-primary mb-3 w-100" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                     Добавить приз
@@ -276,77 +273,76 @@
                         </div>
                     </div>
                 </div>
-			<?php endif; ?>
+            <?php endif; ?>
     </div>
 </section>
 
 
 <?php
-	$gifts_on_page = 4;
-	$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-	$query = "SELECT COUNT(*) as c FROM catalog";
-	$result = $mysqli->query($query)->fetch_object();
-	$num = ceil((int)$result->c[0] / $gifts_on_page);
-	
-	if (isset($_GET['p'])) {
-		$p = $_GET['p'];
-	} else {
-		$p = 1;
-	}
-	$p = (int)$p;
-	if ($p === 0 || $p < 1) {
-		$p = 1;
-	}
-	if ($p > $num) {
-		$p = $num;
-	}
-	$startRow = ($p - 1) * $gifts_on_page;
-	
-	
-	$stmt = $mysqli->prepare("SELECT * FROM catalog LIMIT ?, ?");
-	$stmt->bind_param("ii", $startRow, $gifts_on_page);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$gifts = array();
-	while ($row = $result->fetch_assoc()) {
-		$gifts[] = $row;
-	}
-	$i = 0;
+    $gifts_on_page = 4;
+    $mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
+    $query = "SELECT COUNT(*) as c FROM catalog";
+    $result = $mysqli->query($query)->fetch_object();
+    $num = ceil((int)$result->c[0] / $gifts_on_page);
+    
+    if (isset($_GET['p'])) {
+        $p = $_GET['p'];
+    } else {
+        $p = 1;
+    }
+    $p = (int)$p;
+    if ($p === 0 || $p < 1) {
+        $p = 1;
+    }
+    if ($p > $num) {
+        $p = $num;
+    }
+    $startRow = ($p - 1) * $gifts_on_page;
+    
+    
+    $stmt = $mysqli->prepare("SELECT * FROM catalog LIMIT ?, ?");
+    $stmt->bind_param("ii", $startRow, $gifts_on_page);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $gifts = array();
+    while ($row = $result->fetch_assoc()) {
+        $gifts[] = $row;
+    }
+    $i = 0;
 ?>
 
 <div class="d-grid banner-wrapper_two banner-gap">
-	<?php
-		foreach ($gifts as &$oneGift) {
-			?>
+    <?php
+        foreach ($gifts as &$oneGift) {
+            ?>
             <div class="banner-flying row g-0 border rounded">
                 <div class="p-4 d-flex flex-column justify-content-between">
                     <div class="text-center">
                         <img src="<?= $oneGift["image"] ?>" class="img-fluid mb-2 img-thumbnail " alt="(((">
                         <h5 class="display-3 text-center"><strong><?= $oneGift["title"] ?></strong></h5>
                         <h3 class="card-text mb-3 text-center"><?= $oneGift["description"] ?></h3>
-                        <p class="card-text mb-3 text-center"><?= $oneGift["price"] ?></p>
-						<?php
-							if (isset($_SESSION['user_id'])) {
-								$user_id = $_SESSION['user_id'];
-								$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-								$stmt = $mysqli->prepare("SELECT points FROM users WHERE id = ?");
-								$stmt->bind_param("i", $user_id);
-								$stmt->execute();
-								$result = $stmt->get_result();
-								$row = $result->fetch_assoc();
-								$user_points = $row['points'];
-							} else {
-								$user_points = 0;
-							}
-							if ($user_points >= $oneGift["price"]) { ?>
+                        <p class="card-text mb-3 text-center pe-1"><?= $oneGift["price"] ?><i class="ml bi bi-coin purple-color"></i></p>
+                        <?php
+                            if (isset($_SESSION['user_id'])) {
+                                $user_id = $_SESSION['user_id'];
+                                $mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
+                                $stmt = $mysqli->prepare("SELECT points FROM users WHERE id = ?");
+                                $stmt->bind_param("i", $user_id);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $row = $result->fetch_assoc();
+                                $user_points = $row['points'];
+                            } else {
+                                $user_points = 0;
+                            }
+                            if ($user_points >= $oneGift["price"]) { ?>
                                 <button type="button" class="btn btn-primary mb-3 w-100" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
+                                        data-bs-target="#exampleModal<?= $oneGift["id"]; ?>">
                                     Купить
                                 </button>
 
                                 <!-- Модальное окно -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                     aria-labelledby="exampleModalLabel"
+                                <div class="modal fade" id="exampleModal<?= $oneGift["id"]; ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
                                      aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -357,43 +353,38 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="p-3 rounded-3 bg-light">
-                                                    <form action="../scripts/php/order.php?id=<?= $oneGift["id"] ?>"
-                                                          method="post">
+                                                    <form action="../scripts/php/order.php" method="get">
                                                         <div class="mb-3">
                                                             <label for="InputType" class="form-label">Адрес</label>
-                                                            <input type="text" class="form-control" id="InputType"
-                                                                   name="type">
+                                                            <input type="hidden" class="form-control" value="<?= $oneGift["id"]; ?>" name="id">
+                                                            <input type="text" class="form-control" id="InputType" name="type">
                                                         </div>
-                                                        <button type="submit" class="btn btn-outline-dark">Оформить
-                                                            заказ
-                                                        </button>
+                                                        <button type="submit" class="btn btn-outline-dark">Оформить заказ</button>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-							
-							<?php } else { ?>
-                                <button id="catalog-btn" onclick="alert('Недостаточно баллов, накопите еще')"
-                                        type="button" class="btn btn-primary mb-3 w-100">Купить
-                                </button>
-							<?php } ?>
+                           
+                            <?php } else { ?>
+                                <button id="catalog-btn" onclick="alert('Недостаточно баллов, накопите еще')" type="button" class="btn btn-primary mb-3 w-100">Купить</button>
+                            <?php } ?>
                     </div>
                 </div>
             </div>
-			<?php
-		}
-	?>
+            <?php
+        }
+    ?>
 </div>
 
 <div class="text-center mt-3">
     <a href="<?php echo "?p=" . ($p - 1) ?>" class=" <?php if ($p == 1) {
-		echo 'disabled';
-	} ?> btn btn-light more mb-1">Предыдущая страница</a>
+        echo 'disabled';
+    } ?> btn btn-light more mb-1">Предыдущая страница</a>
     <a href="<?php echo "?p=" . ($p + 1) ?>" class=" <?php if ($p == $num) {
-		echo 'disabled';
-	} ?> btn btn-light more mb-1">Следующая страница</a>
+        echo 'disabled';
+    } ?> btn btn-light more mb-1">Следующая страница</a>
 </div>
 
 

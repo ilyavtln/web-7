@@ -32,7 +32,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>О нас</title>
+    <title>Корзина</title>
     <meta name="description" content="Акции и призы ежедневно">
     <link href="../styles/bootstrap.css" rel="stylesheet">
     <link href="../styles/style.css" rel="stylesheet">
@@ -273,8 +273,8 @@
                         <div class="btn btn-primary w-fit-content mb-3 text-left">Оформлено: <?= $oneCart["date"] ?></div>
                         <div class="card-text mb-3">По адресу: <?= $oneCart["address"] ?></div>
                         <img src="<?= $catalog_items[0]["image"] ?>" class="img-fluid mb-2 img-thumbnail " alt="(((">
-                        <p class="card-text mb-3"><?= $catalog_items[0]["title"] ?></p>
-                        <a class="btn btn-danger w-100" href="../scripts/php/removeOrder.php?id=<?= $oneCart["id"]?>&price=<?= $catalog_items[0]["price"] ?>" role="button">Отменить заказ</a>
+                        <h3 class="card-text mb-3"><?= $catalog_items[0]["title"] ?></h3>
+                        <a class="btn btn-danger w-100" href="../scripts/php/removeOrder.php?id=<?= $oneCart["id"]?>&catalog_id=<?= $catalog_items[0]["id"] ?>" role="button">Отменить заказ</a>
                     </div>
                 </div>
 			<?php } ?>

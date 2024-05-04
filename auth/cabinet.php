@@ -1,10 +1,13 @@
 <?php
 	session_start();
 	
+	$userField = "";
+	$userPoints = 0;
+ 
 	if (isset($_SESSION['user_id'])) {
 		$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
 		
-		$stmt = $mysqli->prepare("SELECT name, surname, points FROM users WHERE id = ?");
+		$stmt = $mysqli->prepare("SELECT name, surname, points, login FROM users WHERE id = ?");
 		$stmt->bind_param("i", $_SESSION['user_id']);
 		$stmt->execute();
 		
@@ -15,13 +18,14 @@
 		$mysqli->close();
 		
 		$name = $user['name'];
+		$userLogin = $user['login'];
 		$surname = strval($user['surname']);
 		$userField = $name . " " . mb_strimwidth($surname, 0, 1) . ".";
 		
 		$userPoints = $user['points'];
 	} else {
-		$userField = "";
-		$userPoints = 0;
+		header("Location: authorization.php");
+		exit();
 	}
 ?>
 
@@ -209,12 +213,6 @@
     </div>
 </section>
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: authorization.php");
-    exit();
-}
 
 $mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
 
@@ -242,15 +240,61 @@ $mysqli->close();
 <section class="page-section">
     <div class="container">
         <div class="bg-white rounded-3 p-3 mt-3" >
-            <h2>
-                Имя: <?=$user["name"]?><br>
-                Фамилия: <?=$user["surname"]?><br>
-                Роль:  <?=$user['login'] == 'admin' ? 'администратор' : 'пользователь'?><br>
-                Накоплено бонусов: <?=$user["points"]?>
-            </h2>
+            <div class="d-flex flex-row">
+                <h2>
+                    Имя: <?=$user["name"]?><br>
+                    Фамилия: <?=$user["surname"]?><br>
+                    Роль:  <?=$user['login'] == 'admin' ? 'администратор' : 'пользователь'?><br>
+                    Накоплено бонусов: <?=$user["points"]?> <i class="ml-1 bi bi-coin purple-color"></i>
+                </h2>
+            </div>
         </div>
     </div>
 </section>
+
+<?php
+//	$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
+//	$stmt = $mysqli->prepare("SELECT * FROM cart WHERE login = ?");
+//	$stmt->bind_param("s", $userLogin);
+//	$stmt->execute();
+//	$result = $stmt->get_result();
+//	$carts = array();
+//	while ($row = $result->fetch_assoc()) {
+//		$carts[] = $row;
+//	}
+//?>
+<!---->
+<!--<section class="page-section">-->
+<!--    <div class="container">-->
+<!--        <div class="d-grid banner-gap">-->
+<!--			--><?php //foreach ($carts as $oneCart) { ?>
+<!--				--><?php
+//				$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
+//				$stmt = $mysqli->prepare("SELECT * FROM catalog WHERE id = ?");
+//				$stmt->bind_param("s", $oneCart["catalog_id"]);
+//				$stmt->execute();
+//				$result = $stmt->get_result();
+//				$catalog_items = array();
+//				while ($row = $result->fetch_assoc()) {
+//					$catalog_items[] = $row;
+//				}
+//				?>
+<!--                <div class="banner-flying row g-0 border rounded">-->
+<!--                    <div class="p-4 d-flex row justify-content-between">-->
+<!--                        <div>-->
+<!--                            <div class="btn btn-primary w-fit-content mb-3 text-left">Заказ №: --><?php //= $oneCart["id"] ?><!--</div>-->
+<!--                            <div class="btn btn-primary w-fit-content mb-3 text-left">Оформлено: --><?php //= $oneCart["date"] ?><!--</div>-->
+<!--                            <div class="card-text mb-3">По адресу: --><?php //= $oneCart["address"] ?><!--</div>-->
+<!--                            <h3 class="card-text mb-3">--><?php //= $catalog_items[0]["title"] ?><!--</h3>-->
+<!--                            <a class="btn btn-danger w-100" href="../scripts/php/removeOrder.php?id=--><?php //= $oneCart["id"]?><!--&price=--><?php //= $catalog_items[0]["price"] ?><!--" role="button">Отменить заказ</a>-->
+<!--                        </div>-->
+<!--                        <img src="--><?php //= $catalog_items[0]["image"] ?><!--" class="img-fluid mb-2 img-thumbnail " alt="(((">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--			--><?php //} ?>
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
 
 <section class="page-section">
     <!-- Для нормального отступа -->
