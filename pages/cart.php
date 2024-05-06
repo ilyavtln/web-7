@@ -179,6 +179,18 @@
                                     Акции
                                 </a>
                             </li>
+                            <li class="nav-item border-1 border-bottom border-black">
+                                <a class="nav-link active" href="cart.php">
+                                    <i class="bi bi-bag"></i>
+                                    Корзина
+                                </a>
+                            </li>
+                            <li class="nav-item border-1 border-bottom border-black">
+                                <a class="nav-link" href="about.php">
+                                    <i class="bi bi-info-circle"></i>
+                                    О разработчиках
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                    aria-expanded="false">
