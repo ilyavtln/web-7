@@ -3,7 +3,7 @@
 	
 	$userField = "";
 	$userPoints = 0;
- 
+	
 	if (isset($_SESSION['user_id'])) {
 		$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
 		
@@ -39,8 +39,12 @@
     <meta name="description" content="Акции и призы ежедневно">
     <link href="../styles/bootstrap.css" rel="stylesheet">
     <link href="../styles/style.css" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -213,25 +217,25 @@
     </div>
 </section>
 <?php
-
-$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-
-$stmt = $mysqli->prepare("SELECT * FROM users WHERE id = ?");
-$stmt->bind_param("i", $_SESSION['user_id']);
-$stmt->execute();
-
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
-
-$stmt->close();
-$mysqli->close();
+	
+	$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
+	
+	$stmt = $mysqli->prepare("SELECT * FROM users WHERE id = ?");
+	$stmt->bind_param("i", $_SESSION['user_id']);
+	$stmt->execute();
+	
+	$result = $stmt->get_result();
+	$user = $result->fetch_assoc();
+	
+	$stmt->close();
+	$mysqli->close();
 ?>
 
 <section class="page-section">
     <div class="container">
-        <div class="bg-light rounded-3 p-3 mt-3" >
+        <div class="bg-light rounded-3 p-3 mt-3">
             <h3 class="display-3 text-center">
-                <strong>Добро пожаловать, <?=$user["login"]?>!</strong>
+                <strong>Добро пожаловать, <?= $user["login"] ?>!</strong>
             </h3>
         </div>
     </div>
@@ -239,13 +243,13 @@ $mysqli->close();
 
 <section class="page-section">
     <div class="container">
-        <div class="bg-white rounded-3 p-3 mt-3" >
+        <div class="bg-white rounded-3 p-3 mt-3">
             <div class="banner-flying row p-3 border rounded-3">
                 <h2>
-                    Имя: <?=$user["name"]?><br>
-                    Фамилия: <?=$user["surname"]?><br>
-                    Роль:  <?=$user['login'] == 'admin' ? 'администратор' : 'пользователь'?><br>
-                    Накоплено бонусов: <?=$user["points"]?> <i class="ml-1 bi bi-coin purple-color"></i>
+                    Имя: <?= $user["name"] ?><br>
+                    Фамилия: <?= $user["surname"] ?><br>
+                    Роль: <?= $user['login'] == 'admin' ? 'администратор' : 'пользователь' ?><br>
+                    Накоплено бонусов: <?= $user["points"] ?> <i class="ml-1 bi bi-coin purple-color"></i>
                 </h2>
             </div>
         </div>
@@ -255,110 +259,114 @@ $mysqli->close();
 <?php
 	if ($user['login'] == 'admin'): ?>
 		<?php
-            $admin_login = "admin";
-            $mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-            $stmt = $mysqli->prepare("SELECT * FROM users WHERE login != ?");
-            $stmt->bind_param("s", $admin_login);
-            $stmt->execute();
-            $result = $stmt->get_result();
-		    $users = array();
-            while ($row = $result->fetch_assoc()) {
-                $users[] = $row;
-            }
-            $stmt->close();
+		$admin_login = "admin";
+		$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
+		$stmt = $mysqli->prepare("SELECT * FROM users WHERE login != ?");
+		$stmt->bind_param("s", $admin_login);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$users = array();
+		while ($row = $result->fetch_assoc()) {
+			$users[] = $row;
+		}
+		$stmt->close();
 		
 		
-		    $isReceived = 1;
-            $stmt = $mysqli->prepare("SELECT * FROM cart WHERE received != ?");
-            $stmt->bind_param("s", $isReceived);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $not_received = array();
-            while ($row = $result->fetch_assoc()) {
-	            $not_received[] = $row;
-            }
+		$isReceived = 1;
+		$stmt = $mysqli->prepare("SELECT * FROM cart WHERE received != ?");
+		$stmt->bind_param("s", $isReceived);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$not_received = array();
+		while ($row = $result->fetch_assoc()) {
+			$not_received[] = $row;
+		}
 		
-            $stmt = $mysqli->prepare("SELECT * FROM cart WHERE received = ?");
-            $stmt->bind_param("s", $isReceived);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $received = array();
-            while ($row = $result->fetch_assoc()) {
-                $received[] = $row;
-            }
+		$stmt = $mysqli->prepare("SELECT * FROM cart WHERE received = ?");
+		$stmt->bind_param("s", $isReceived);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$received = array();
+		while ($row = $result->fetch_assoc()) {
+			$received[] = $row;
+		}
 		?>
-        
+
         <section class="page-section">
             <div class="container">
-                <h3 class="text-center">Статистика накопленных баллов</h3>
+                <h3 class="text-center mb-3">Статистика накопленных баллов</h3>
                 <div class="d-grid banner-wrapper_two">
-	                <?php foreach ($users as $oneUser) { ?>
+					<?php foreach ($users as $oneUser) { ?>
                         <div class="banner-flying row g-0 border rounded-3">
                             <div class="p-4 d-flex flex-column justify-content-between">
-                                <div class="btn btn-info w-fit-content mb-3"><?= $oneUser["id"] ?></div>
+                                <div class="btn btn-info w-fit-content mb-3">User №: <?= $oneUser["id"] ?></div>
                                 <h3><?= $oneUser["name"] ?> <?= $oneUser["surname"] ?></h3>
                                 <p>
-                                    Количество баллов: <?=$oneUser["points"]?> <i class="ml-1 bi bi-coin purple-color"></i>
+                                    Количество баллов: <?= $oneUser["points"] ?> <i
+                                            class="ml-1 bi bi-coin purple-color"></i>
                                 </p>
                             </div>
                         </div>
-	                <?php } ?>
+					<?php } ?>
                 </div>
             </div>
         </section>
 
         <section class="page-section">
             <div class="container">
-                <h3 class="text-center">Заказанные товары</h3>
+                <h3 class="text-center mb-3">Заказанные товары</h3>
                 <div class="d-grid ban-3">
-	                <?php foreach ($not_received as $oneCart) { ?>
-		                <?php
-		                $mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-		                $stmt = $mysqli->prepare("SELECT * FROM catalog WHERE id = ?");
-		                $stmt->bind_param("s", $oneCart["catalog_id"]);
-		                $stmt->execute();
-		                $result = $stmt->get_result();
-		                $catalog_items = array();
-		                while ($row = $result->fetch_assoc()) {
-			                $catalog_items[] = $row;
-		                }
-		                ?>
+					<?php foreach ($not_received as $oneCart) { ?>
+						<?php
+						$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
+						$stmt = $mysqli->prepare("SELECT * FROM catalog WHERE id = ?");
+						$stmt->bind_param("s", $oneCart["catalog_id"]);
+						$stmt->execute();
+						$result = $stmt->get_result();
+						$catalog_items = array();
+						while ($row = $result->fetch_assoc()) {
+							$catalog_items[] = $row;
+						}
+						?>
                         <div class="banner-flying row g-0 border rounded">
                             <div class="p-4 d-flex flex-column justify-content-between">
                                 <div class="d-flex justify-content-between flex-column">
                                     <div>
                                         <div class="d-flex flex-lg-row flex-column gap-lg-3 gap-1 align-content-start">
-                                            <div class="btn btn-outline-primary w-fit-content mb-3 text-left">Заказ №: <?= $oneCart["id"] ?></div>
-                                            <div class="btn btn-outline-info w-fit-content mb-3 text-left">Оформлено: <?= $oneCart["date"] ?></div>
+                                            <div class="btn btn-outline-primary w-fit-content mb-3 text-left">Заказ
+                                                №: <?= $oneCart["id"] ?></div>
+                                            <div class="btn btn-outline-info w-fit-content mb-3 text-left">
+                                                Оформлено: <?= $oneCart["date"] ?></div>
                                         </div>
                                         <div class="card-text mb-3"><b>По адресу:</b> <?= $oneCart["address"] ?></div>
-                                        <img src="<?= $catalog_items[0]["image"] ?>" class="img-fluid mb-2 img-thumbnail " alt="(((">
+                                        <img src="<?= $catalog_items[0]["image"] ?>"
+                                             class="img-fluid mb-2 img-thumbnail " alt="(((">
                                         <h3 class="card-text mb-3"><?= $catalog_items[0]["title"] ?></h3>
                                         <div class="">
-	                                        <?php
-		                                        $mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-		                                        $stmt = $mysqli->prepare("SELECT name, surname FROM users WHERE login = ?");
-		                                        $stmt->bind_param("s", $oneCart["login"]);
-		                                        $stmt->execute();
-		                                        $result = $stmt->get_result();
-		                                        $user = $result->fetch_assoc();
-		                                        $name = $user['name'];
-		                                        $surname = strval($user['surname']);
-	                                        ?>
-	                                        Заказал: <?= $name ?> <?= $surname ?>
+											<?php
+												$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
+												$stmt = $mysqli->prepare("SELECT name, surname FROM users WHERE login = ?");
+												$stmt->bind_param("s", $oneCart["login"]);
+												$stmt->execute();
+												$result = $stmt->get_result();
+												$user = $result->fetch_assoc();
+												$name = $user['name'];
+												$surname = strval($user['surname']);
+											?>
+                                            Заказал: <?= $name ?> <?= $surname ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-	                <?php } ?>
+					<?php } ?>
                 </div>
             </div>
         </section>
 
         <section class="page-section">
             <div class="container">
-                <h3 class="text-center">Полученные товары</h3>
+                <h3 class="text-center mb-3">Полученные товары</h3>
                 <div class="d-grid ban-3">
 					<?php foreach ($received as $oneCart) { ?>
 						<?php
@@ -377,11 +385,14 @@ $mysqli->close();
                                 <div class="d-flex justify-content-between flex-column">
                                     <div>
                                         <div class="d-flex flex-lg-row flex-column gap-lg-3 gap-1 align-content-start">
-                                            <div class="btn btn-outline-primary w-fit-content mb-3 text-left">Заказ №: <?= $oneCart["id"] ?></div>
-                                            <div class="btn btn-outline-info w-fit-content mb-3 text-left">Оформлено: <?= $oneCart["date"] ?></div>
+                                            <div class="btn btn-outline-primary w-fit-content mb-3 text-left">
+                                                №: <?= $oneCart["id"] ?></div>
+                                            <div class="btn btn-outline-info w-fit-content mb-3 text-left">
+                                                От <?= $oneCart["date"] ?></div>
                                         </div>
                                         <div class="card-text mb-3"><b>По адресу:</b> <?= $oneCart["address"] ?></div>
-                                        <img src="<?= $catalog_items[0]["image"] ?>" class="img-fluid mb-2 img-thumbnail " alt="(((">
+                                        <img src="<?= $catalog_items[0]["image"] ?>"
+                                             class="img-fluid mb-2 img-thumbnail " alt="(((">
                                         <h3 class="card-text mb-3"><?= $catalog_items[0]["title"] ?></h3>
                                         <div class="">
 											<?php
@@ -407,50 +418,6 @@ $mysqli->close();
 	<?php endif;
 ?>
 
-<?php
-//	$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-//	$stmt = $mysqli->prepare("SELECT * FROM cart WHERE login = ?");
-//	$stmt->bind_param("s", $userLogin);
-//	$stmt->execute();
-//	$result = $stmt->get_result();
-//	$carts = array();
-//	while ($row = $result->fetch_assoc()) {
-//		$carts[] = $row;
-//	}
-//?>
-<!---->
-<!--<section class="page-section">-->
-<!--    <div class="container">-->
-<!--        <div class="d-grid banner-gap">-->
-<!--			--><?php //foreach ($carts as $oneCart) { ?>
-<!--				--><?php
-//				$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-//				$stmt = $mysqli->prepare("SELECT * FROM catalog WHERE id = ?");
-//				$stmt->bind_param("s", $oneCart["catalog_id"]);
-//				$stmt->execute();
-//				$result = $stmt->get_result();
-//				$catalog_items = array();
-//				while ($row = $result->fetch_assoc()) {
-//					$catalog_items[] = $row;
-//				}
-//				?>
-<!--                <div class="banner-flying row g-0 border rounded">-->
-<!--                    <div class="p-4 d-flex row justify-content-between">-->
-<!--                        <div>-->
-<!--                            <div class="btn btn-primary w-fit-content mb-3 text-left">Заказ №: --><?php //= $oneCart["id"] ?><!--</div>-->
-<!--                            <div class="btn btn-primary w-fit-content mb-3 text-left">Оформлено: --><?php //= $oneCart["date"] ?><!--</div>-->
-<!--                            <div class="card-text mb-3">По адресу: --><?php //= $oneCart["address"] ?><!--</div>-->
-<!--                            <h3 class="card-text mb-3">--><?php //= $catalog_items[0]["title"] ?><!--</h3>-->
-<!--                            <a class="btn btn-danger w-100" href="../scripts/php/removeOrder.php?id=--><?php //= $oneCart["id"]?><!--&price=--><?php //= $catalog_items[0]["price"] ?><!--" role="button">Отменить заказ</a>-->
-<!--                        </div>-->
-<!--                        <img src="--><?php //= $catalog_items[0]["image"] ?><!--" class="img-fluid mb-2 img-thumbnail " alt="(((">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--			--><?php //} ?>
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
-
 <section class="page-section">
     <!-- Для нормального отступа -->
 </section>
@@ -460,7 +427,8 @@ $mysqli->close();
         <footer class="d-flex py-2 flex-wrap justify-content-between align-items-center border-top">
             <div class="d-flex align-items-center">
                 <a href="/" class="text-body-secondary text-decoration-none pe-2">
-                    <img src="../shared/logos/main.svg" alt="Logo" width="auto" height="30" class="d-inline-block align-text-center">
+                    <img src="../shared/logos/main.svg" alt="Logo" width="auto" height="30"
+                         class="d-inline-block align-text-center">
                 </a>
                 <span class="text-body-secondary">&copy; 2024 Company, Inc</span>
             </div>

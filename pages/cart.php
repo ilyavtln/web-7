@@ -283,8 +283,8 @@
                         <div class="d-flex justify-content-between flex-column">
                             <div>
                                 <div class="d-flex flex-lg-row flex-column gap-lg-3 gap-1 align-content-start">
-                                    <div class="btn btn-outline-primary w-fit-content mb-3 text-left">Заказ №: <?= $oneCart["id"] ?></div>
-                                    <div class="btn btn-outline-info w-fit-content mb-3 text-left">Оформлено: <?= $oneCart["date"] ?></div>
+                                    <div class="btn btn-outline-primary w-fit-content mb-3 text-left">№: <?= $oneCart["id"] ?></div>
+                                    <div class="btn btn-outline-info w-fit-content mb-3 text-left">От <?= $oneCart["date"] ?></div>
                                 </div>
                                 <div class="card-text mb-3"><b>По адресу:</b> <?= $oneCart["address"] ?></div>
                                 <img src="<?= $catalog_items[0]["image"] ?>" class="img-fluid mb-2 img-thumbnail " alt="(((">
