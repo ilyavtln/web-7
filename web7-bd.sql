@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 04 2024 г., 14:26
+-- Время создания: Май 06 2024 г., 19:05
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -32,17 +32,21 @@ CREATE TABLE `cart` (
   `catalog_id` int NOT NULL,
   `date` date NOT NULL,
   `address` text COLLATE utf8mb4_general_ci NOT NULL,
-  `login` text COLLATE utf8mb4_general_ci NOT NULL
+  `login` text COLLATE utf8mb4_general_ci NOT NULL,
+  `received` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `cart`
 --
 
-INSERT INTO `cart` (`id`, `catalog_id`, `date`, `address`, `login`) VALUES
-(33, 4, '2024-05-04', 'Чита', 'ilyavtln'),
-(36, 3, '2024-05-04', 'ааыа', 'ilyavtln'),
-(38, 5, '2024-05-04', 'Чита', 'ilyavtln');
+INSERT INTO `cart` (`id`, `catalog_id`, `date`, `address`, `login`, `received`) VALUES
+(45, 1, '2024-05-06', 'Куда-то', 'ilyavtln', 1),
+(46, 5, '2024-05-06', '1111', 'ilyavtln', 1),
+(47, 4, '2024-05-06', '1111', 'ilyavtln', 0),
+(48, 6, '2024-05-06', '1111', 'ilyavtln', 1),
+(49, 1, '2024-05-06', '1111', 'ilyavtln', 1),
+(50, 5, '2024-05-06', 'Чита', 'ilyavtln', 0);
 
 -- --------------------------------------------------------
 
@@ -109,13 +113,8 @@ CREATE TABLE `promocodes` (
 --
 
 INSERT INTO `promocodes` (`id`, `type`, `price`) VALUES
-(1, 'ea3747ds75', 1000),
-(2, '1234567890', 2000),
 (3, '0987654321', 3000),
-(4, 'g56uy7890e', 500),
-(5, 'ngmk00rr9k', 1500),
-(6, 'nm7y6r3lk2', 2000),
-(7, 'wq23b1n4r6', 3000);
+(8, '111111', 1000);
 
 -- --------------------------------------------------------
 
@@ -137,8 +136,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `surname`, `login`, `password`, `points`) VALUES
-(1, 'Админ', 'Админ', 'admin', 'fdc0ae4052bc28b93aeefec22450665d', 1000),
-(6, 'Елья', 'Ватлин', 'ilyavtln', 'c8d927166b53b8d0356293eec7a81600', 15000),
+(1, 'Админ', 'Админ', 'admin', 'fdc0ae4052bc28b93aeefec22450665d', 3000),
+(6, 'Елья', 'Ватлин', 'ilyavtln', 'c8d927166b53b8d0356293eec7a81600', 35000),
 (7, 'маша', 'гудкова', 'gudok', '2e77c4c5676f726e9c04a427a293601c', 1000);
 
 --
@@ -183,7 +182,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog`
@@ -195,13 +194,13 @@ ALTER TABLE `catalog`
 -- AUTO_INCREMENT для таблицы `promo`
 --
 ALTER TABLE `promo`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `promocodes`
 --
 ALTER TABLE `promocodes`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `users`

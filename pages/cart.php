@@ -207,7 +207,8 @@
                                                    href="../auth/authorization.php">Авторизация</a>
                                             </li>
 										
-										<?php endif; ?>
+										<?php endif;
+                                    ?>
                                 </ul>
                             </li>
                         </ul>
@@ -240,9 +241,19 @@
     </div>
 </section>
 
+<section class="page-section">
+    <div class="container">
+        <div class="bg-light rounded-3 p-3 mt-3">
+            <h3 class="display-1 text-center">
+                <strong>Заказы</strong>
+            </h3>
+        </div>
+    </div>
+</section>
+
 <?php
 	$mysqli = new mysqli('localhost', 'root', 'root', 'web7-bd');
-	$stmt = $mysqli->prepare("SELECT * FROM cart WHERE login = ?");
+	$stmt = $mysqli->prepare("SELECT * FROM cart WHERE login = ? ORDER BY received, id DESC");
 	$stmt->bind_param("s", $userLogin);
 	$stmt->execute();
 	$result = $stmt->get_result();
@@ -269,12 +280,28 @@
 				?>
                 <div class="banner-flying row g-0 border rounded">
                     <div class="p-4 d-flex flex-column justify-content-between">
-                        <div class="btn btn-primary w-fit-content mb-3 text-left">Заказ №: <?= $oneCart["id"] ?></div>
-                        <div class="btn btn-primary w-fit-content mb-3 text-left">Оформлено: <?= $oneCart["date"] ?></div>
-                        <div class="card-text mb-3">По адресу: <?= $oneCart["address"] ?></div>
-                        <img src="<?= $catalog_items[0]["image"] ?>" class="img-fluid mb-2 img-thumbnail " alt="(((">
-                        <h3 class="card-text mb-3"><?= $catalog_items[0]["title"] ?></h3>
-                        <a class="btn btn-danger w-100" href="../scripts/php/removeOrder.php?id=<?= $oneCart["id"]?>&catalog_id=<?= $catalog_items[0]["id"] ?>" role="button">Отменить заказ</a>
+                        <div class="d-flex justify-content-between flex-column">
+                            <div>
+                                <div class="d-flex flex-lg-row flex-column gap-lg-3 gap-1 align-content-start">
+                                    <div class="btn btn-outline-primary w-fit-content mb-3 text-left">Заказ №: <?= $oneCart["id"] ?></div>
+                                    <div class="btn btn-outline-info w-fit-content mb-3 text-left">Оформлено: <?= $oneCart["date"] ?></div>
+                                </div>
+                                <div class="card-text mb-3"><b>По адресу:</b> <?= $oneCart["address"] ?></div>
+                                <img src="<?= $catalog_items[0]["image"] ?>" class="img-fluid mb-2 img-thumbnail " alt="(((">
+                                <h3 class="card-text mb-3"><?= $catalog_items[0]["title"] ?></h3>
+                            </div>
+                            <div>
+	                            <?php
+		                            if ($oneCart["received"] == 0): ?>
+                                        <a class="btn btn-outline-success mb-3 w-100" href="../scripts/php/takeOrder.php?id=<?= $oneCart["id"]?>&catalog_id=<?= $catalog_items[0]["id"] ?>" role="button">Получить</a>
+                                        <a class="btn btn-danger w-100" href="../scripts/php/removeOrder.php?id=<?= $oneCart["id"]?>&catalog_id=<?= $catalog_items[0]["id"] ?>" role="button">Отменить заказ</a>
+		                            <?php else: ?>
+                                        <a class="btn disabled mb-3 w-100" disabled role="button">Заказ получен</a>
+                                        <a class="btn disabled w-100" disabled role="button">Отменить заказ</a>
+		                            <?php endif;
+	                            ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
 			<?php } ?>

@@ -257,10 +257,44 @@
                     </div>
                 </div>
 			
-			
 			<?php else: ?>
                 <div class="d-grid gap-2">
                     <a class="btn btn-primary mb-3" href="auth/registration.php" role="button">Ввести код</a>
+                </div>
+			<?php endif; ?>
+		
+		    <?php
+			if (isset($_SESSION['admin_access']) && $_SESSION['admin_access'] == true): ?>
+                <button type="button" class="btn btn-outline-danger mb-3 w-100" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalAdmin">
+                    Добавить промокод
+                </button>
+
+                <!-- Модальное окно -->
+                <div class="modal fade" id="exampleModalAdmin" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Добавление промокода</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="p-3 rounded-3 bg-light">
+                                    <form action="scripts/php/createPromo.php" method="get">
+                                        <div class="mb-3">
+                                            <label for="InputType" class="form-label">Секретный код</label>
+                                            <input type="text" class="form-control" name="code">
+                                            <label for="InputType" class="form-label">Количество баллов</label>
+                                            <input type="text" class="form-control" name="coast">
+                                        </div>
+                                        <button type="submit" class="btn btn-outline-dark">Отправить</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 			<?php endif; ?>
     </div>
