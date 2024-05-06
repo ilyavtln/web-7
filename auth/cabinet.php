@@ -65,7 +65,7 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
                     <ul class="navbar-nav gap-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="../index.php">Главная</a>
+                            <a class="nav-link" aria-current="page" href="../index.php">Главная</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../pages/catalog.php">Каталог</a>
@@ -76,7 +76,7 @@
                     </ul>
                     <ul class="navbar-nav gap-3">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 <i class="bi bi-person-circle"></i>
 								<?= $userField ?>
@@ -344,8 +344,8 @@
                             <div class="p-4 d-flex flex-column justify-content-between">
                                 <div class="d-flex justify-content-between flex-column">
                                     <div>
-                                        <div class="d-flex flex-lg-row flex-column gap-lg-3 gap-1 align-content-start">
-                                            <div class="btn btn-outline-primary w-fit-content mb-3 text-left">Заказ
+                                        <div class="d-flex flex-xl-row flex-column gap-xl-2 gap-1 align-content-start">
+                                            <div class="btn btn-outline-primary w-fit-content mb-xl-3 mb-1 text-left">Заказ
                                                 №: <?= $oneCart["id"] ?></div>
                                             <div class="btn btn-outline-info w-fit-content mb-3 text-left">
                                                 Оформлено: <?= $oneCart["date"] ?></div>
